@@ -36,7 +36,7 @@
 </head>
 <body>
   <main>
-    <audio id="lettore" controls autoplay preload="auto" aria-label="Lettore notiziario audio">
+    <audio id="lettore" controls preload="metadata" aria-label="Lettore notiziario audio">
       Il tuo browser non supporta il lettore audio.
     </audio>
     <p><a href="javascript:history.back()">Torna al sito</a></p>
@@ -55,8 +55,7 @@
 
     if (file && /^[a-zA-Z0-9._-]+\.mp3$/i.test(file)) {
       lettore.src = file;
-      lettore.play().catch(() => {
-      });
+      lettore.focus();
     } else {
       document.querySelector('main').innerHTML = '<p>File audio non trovato.</p><p><a href="javascript:history.back()">Torna al sito</a></p>';
     }
