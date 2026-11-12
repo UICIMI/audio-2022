@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ascolto Notiziario Audio</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    main {
+      max-width: 520px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    audio {
+      width: 100%;
+      margin-bottom: 24px;
+    }
+    .azioni a {
+      color: #90caf9;
+      text-decoration: underline;
+      margin: 0 12px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 id="titolo-audio">Notiziario Audio</h1>
+    <audio id="lettore" controls preload="metadata">
+      Il tuo browser non supporta il lettore audio.
+    </audio>
+    <div class="azioni">
+      <a id="link-download" href="#" download>Scarica file MP3</a>
+      <a href="javascript:history.back()">Torna al sito</a>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get('file');
+    const titolo = params.get('titolo');
+
+    if (titolo) {
+      document.getElementById('titolo-audio').textContent = titolo;
+      document.title = titolo;
+    }
+
+    if (file && /^[a-zA-Z0-9._-]+\.mp3$/i.test(file)) {
+      const lettore = document.getElementById('lettore');
+      lettore.src = file;
+      lettore.setAttribute('aria-label', titolo || 'Lettore notiziario audio');
+      document.getElementById('link-download').href = file;
+    } else {
+      document.getElementById('titolo-audio').textContent = 'File audio non trovato.';
+    }
+  </script>
+</body>
+</html>
